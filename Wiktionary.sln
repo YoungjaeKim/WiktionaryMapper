@@ -1,11 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqliteBatchImport", "SqliteBatchImport\SqliteBatchImport.csproj", "{77A03314-9210-400F-B554-0EC5E5F4601F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WiktionaryMapper", "WiktionaryMapper\WiktionaryMapper.csproj", "{4989F2E7-BB71-48D6-B741-61D09DD38209}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WiktionaryParser", "WiktionaryParser\WiktionaryParser.csproj", "{490E10C5-B9CD-4C6B-8774-A18E7ECE501F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WiktionaryMapperGui", "WiktionaryMapperGui\WiktionaryMapperGui.csproj", "{D7EE4F7C-688B-4AC9-9155-951AB63E5B62}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +29,10 @@ Global
 		{490E10C5-B9CD-4C6B-8774-A18E7ECE501F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{490E10C5-B9CD-4C6B-8774-A18E7ECE501F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{490E10C5-B9CD-4C6B-8774-A18E7ECE501F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7EE4F7C-688B-4AC9-9155-951AB63E5B62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7EE4F7C-688B-4AC9-9155-951AB63E5B62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7EE4F7C-688B-4AC9-9155-951AB63E5B62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7EE4F7C-688B-4AC9-9155-951AB63E5B62}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

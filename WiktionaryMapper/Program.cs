@@ -74,17 +74,17 @@ namespace Memoling.Tools.WiktionaryMapper
         static void ParseArgs(string[] args)
         {
             // Parse data - for now define it manually
-            uris.Source.Uri = @"\\BARTOSZ-HP\Share\enwiktionary-20130202-pages-articles-multistream.xml";
-            uris.Translations.Uri = @"\\BARTOSZ-HP\Share\trans.sql";
-            uris.Definitions.Uri = @"\\BARTOSZ-HP\Share\defs.sql";
-            uris.Synonims.Uri = @"\\BARTOSZ-HP\Share\syns.sql";
-            uris.Temp.Uri = @"\\BARTOSZ-HP\Share\synsUniq.sql";
+			//uris.Source.Uri = @"\\BARTOSZ-HP\Share\enwiktionary-20130202-pages-articles-multistream.xml";
+			//uris.Translations.Uri = @"\\BARTOSZ-HP\Share\trans.sql";
+			//uris.Definitions.Uri = @"\\BARTOSZ-HP\Share\defs.sql";
+			//uris.Synonims.Uri = @"\\BARTOSZ-HP\Share\syns.sql";
+			//uris.Temp.Uri = @"\\BARTOSZ-HP\Share\synsUniq.sql";
 
-            uris.Source.Uri = @"D:\Share\enwiktionary-20130202-pages-articles-multistream.xml";
-            uris.Translations.Uri = @"D:\Share\trans.sql";
-            uris.Definitions.Uri = @"D:\Share\defs.sql";
-            uris.Synonims.Uri = @"D:\Share\syns.sql";
-            uris.Temp.Uri = @"D:\Share\synsUniq.sql";
+			uris.Source.Uri = @"C:\Users\Youngjae\Downloads\enwiktionary\enwiktionary-20150602-pages-articles-multistream.xml";
+			uris.Translations.Uri = @"C:\Users\Youngjae\Downloads\enwiktionary\trans.sql";
+			uris.Definitions.Uri = @"C:\Users\Youngjae\Downloads\enwiktionary\defs.sql";
+			uris.Synonims.Uri = @"C:\Users\Youngjae\Downloads\enwiktionary\syns.sql";
+			uris.Temp.Uri = @"C:\Users\Youngjae\Downloads\enwiktionary\synsUniq.sql";
 
             uris.Translations.Format = OutputFormat.Sql;
             uris.Definitions.Format = OutputFormat.Sql;

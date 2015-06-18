@@ -1,0 +1,24 @@
+﻿<Window x:Class="WiktionaryMapperGui.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        Title="Wiktionary Dump to SQL Converter" Height="350" Width="525">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="1*"/>
+		</Grid.RowDefinitions>
+		<Grid Margin="10,10,0,10">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="1*"/>
+				<ColumnDefinition Width="Auto"/>
+			</Grid.ColumnDefinitions>
+			<xctk:WatermarkTextBox x:Name="TextBoxOriginalFilePath" HorizontalAlignment="Stretch" Height="23" Margin="0,0,10,0" TextWrapping="Wrap" 
+								   Watermark="Select {lang}wiktionary-{yyyyMMdd}-pages-articles-multistream.xml file" VerticalAlignment="Center" />
+			<Button x:Name="ButtonBrowse" Content="Browse..." HorizontalAlignment="Right" Margin="0,0,10,0" VerticalAlignment="Center" Width="75" Height="23" Grid.Column="1" Click="ButtonBrowse_OnClick"/>
+		</Grid>
+		<Grid Grid.Row="1" Margin="10">
+			<TextBox x:Name="TextBoxOutput" TextWrapping="Wrap" Text="Output will be printed here..."/>
+		</Grid>
+	</Grid>
+</Window>
