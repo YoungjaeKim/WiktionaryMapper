@@ -45,6 +45,7 @@ namespace WiktionaryMapperGui
 			};
 			if (dialog.ShowDialog().GetValueOrDefault(false))
 			{
+				WriteOutput("Wiktionary Process Executed");
 				ExecCommand(@"WiktionaryMapper.exe", dialog.FileName);
 			}
 		}
@@ -73,6 +74,7 @@ namespace WiktionaryMapperGui
 			{
 				Arguments = arguments,
 				CreateNoWindow = true,
+				RedirectStandardInput = true,
 				RedirectStandardOutput = true,
 				RedirectStandardError = true,
 				UseShellExecute = false
