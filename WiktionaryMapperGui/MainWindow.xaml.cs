@@ -33,7 +33,7 @@ namespace WiktionaryMapperGui
 
 		private void WriteOutput(string text)
 		{
-			TextBoxOutput.Dispatcher.Invoke(new Action(() => TextBoxOutput.Text += text));
+			TextBoxOutput.Dispatcher.Invoke(new Action(() => TextBoxOutput.Text += text + Environment.NewLine));
 		}
 
 		private void ButtonBrowse_OnClick(object sender, RoutedEventArgs e)
@@ -45,8 +45,9 @@ namespace WiktionaryMapperGui
 			};
 			if (dialog.ShowDialog().GetValueOrDefault(false))
 			{
+				TextBoxOriginalFilePath.Text = dialog.FileName;
 				WriteOutput("Wiktionary Process Executed");
-				ExecCommand(@"WiktionaryMapper.exe", dialog.FileName);
+				WriteOutput(ExecCommand(@"WiktionaryMapper.exe", dialog.FileName));
 			}
 		}
 
@@ -95,7 +96,7 @@ namespace WiktionaryMapperGui
 
 			// wait for process to exit
 			process.StandardInput.AutoFlush = true;
-			process.StandardInput.Write(" ");
+			process.StandardInput.WriteLine(" ");
 			process.WaitForExit();
 
 			if (process.ExitCode != 0)
