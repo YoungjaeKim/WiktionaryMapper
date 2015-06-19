@@ -31,7 +31,14 @@ namespace Memoling.Tools.WiktionaryMapper
         static void Main(string[] args)
         {
             Init();
-            ParseArgs(args);
+	        try
+	        {
+				ParseArgs(args);
+	        }
+	        catch (Exception exception)
+	        {
+				Environment.Exit(1);
+	        }
 
             IDataProcessor data = CreateDataProcessor();
             InputProcessor inputProcessor = new InputProcessor(data);
@@ -74,18 +81,27 @@ namespace Memoling.Tools.WiktionaryMapper
 
         static void ParseArgs(string[] args)
         {
-            // Parse data - for now define it manually
-			//uris.Source.Uri = @"\\BARTOSZ-HP\Share\enwiktionary-20130202-pages-articles-multistream.xml";
-			//uris.Translations.Uri = @"\\BARTOSZ-HP\Share\trans.sql";
-			//uris.Definitions.Uri = @"\\BARTOSZ-HP\Share\defs.sql";
-			//uris.Synonims.Uri = @"\\BARTOSZ-HP\Share\syns.sql";
-			//uris.Temp.Uri = @"\\BARTOSZ-HP\Share\synsUniq.sql";
+	        if (args == null || args.Length == 0)
+	        {
+				throw new ArgumentNullException("args");
+	        }
+	        if (args.Length > 1)
+	        {
+	            throw new ArgumentException("argument error");
+	        }
 
-			uris.Source.Uri = @"C:\Users\Youngjae\Downloads\enwiktionary\enwiktionary-20150602-pages-articles-multistream.xml";
-			uris.Translations.Uri = @"C:\Users\Youngjae\Downloads\enwiktionary\trans.sql";
-			uris.Definitions.Uri = @"C:\Users\Youngjae\Downloads\enwiktionary\defs.sql";
-			uris.Synonims.Uri = @"C:\Users\Youngjae\Downloads\enwiktionary\syns.sql";
-			uris.Temp.Uri = @"C:\Users\Youngjae\Downloads\enwiktionary\synsUniq.sql";
+			var fileInfo = new FileInfo(args[0]);
+			if (!fileInfo.Exists || fileInfo.DirectoryName == null)
+	        {
+				throw new FileNotFoundException("File Not Found: " + fileInfo.FullName);		        
+	        }
+
+	        string suffix = DateTime.Now.ToString("s").Replace(":","-");
+			uris.Source.Uri = fileInfo.FullName;
+			uris.Translations.Uri = Path.Combine(fileInfo.DirectoryName, String.Format("translations-{0}.sql", suffix));
+			uris.Definitions.Uri = Path.Combine(fileInfo.DirectoryName, String.Format("definitions-{0}.sql", suffix));
+			uris.Synonims.Uri = Path.Combine(fileInfo.DirectoryName, String.Format("synonims-{0}.sql", suffix));
+			uris.Temp.Uri = Path.Combine(fileInfo.DirectoryName, String.Format("temporary-{0}.sql", suffix));
 
             uris.Translations.Format = OutputFormat.Sql;
             uris.Definitions.Format = OutputFormat.Sql;

@@ -82,6 +82,7 @@ namespace WiktionaryMapperGui
 			StringBuilder output = new StringBuilder();
 			process.OutputDataReceived += (sender, e) => { output.AppendLine(e.Data); };
 			process.ErrorDataReceived += (sender, e) => { output.AppendLine(e.Data); };
+			process.Exited += (sender, args) => { output.AppendLine("Exited with Code " + args.ToString()); };
 
 			// run the process
 			process.Start();
@@ -91,6 +92,8 @@ namespace WiktionaryMapperGui
 			process.BeginErrorReadLine();
 
 			// wait for process to exit
+			process.StandardInput.AutoFlush = true;
+			process.StandardInput.Write(" ");
 			process.WaitForExit();
 
 			if (process.ExitCode != 0)
