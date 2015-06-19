@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +23,9 @@ namespace WiktionaryMapperGui
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+
+		TextWriter _writer = null;
+
 		public MainWindow()
 		{
 			InitializeComponent();
@@ -28,8 +33,7 @@ namespace WiktionaryMapperGui
 
 		private void WriteOutput(string text)
 		{
-			// TODO: cross-thread handling
-			TextBoxOutput.Text += text;
+			TextBoxOutput.Dispatcher.Invoke(new Action(() => TextBoxOutput.Text += text));
 		}
 
 		private void ButtonBrowse_OnClick(object sender, RoutedEventArgs e)
@@ -41,9 +45,58 @@ namespace WiktionaryMapperGui
 			};
 			if (dialog.ShowDialog().GetValueOrDefault(false))
 			{
-				// TODO: execute WiktionaryMapper.exe
+				ExecCommand(@"WiktionaryMapper.exe", dialog.FileName);
 			}
+		}
 
+
+		private void Window_Loaded(object sender, RoutedEventArgs e)
+		{
+
+			//// Instantiate the writer
+			//_writer = new TextBoxStreamWriter(txtConsole);
+			//// Redirect the out Console stream
+			//Console.SetOut(_writer);
+
+		}
+
+		/// <summary>
+		/// Source: <![CDATA[http://stackoverflow.com/a/29535211/361100]]>
+		/// </summary>
+		/// <param name="filename"></param>
+		/// <param name="arguments"></param>
+		/// <returns></returns>
+		private static string ExecCommand(string filename, string arguments)
+		{
+			Process process = new Process();
+			ProcessStartInfo psi = new ProcessStartInfo(filename)
+			{
+				Arguments = arguments,
+				CreateNoWindow = true,
+				RedirectStandardOutput = true,
+				RedirectStandardError = true,
+				UseShellExecute = false
+			};
+			process.StartInfo = psi;
+
+			StringBuilder output = new StringBuilder();
+			process.OutputDataReceived += (sender, e) => { output.AppendLine(e.Data); };
+			process.ErrorDataReceived += (sender, e) => { output.AppendLine(e.Data); };
+
+			// run the process
+			process.Start();
+
+			// start reading output to events
+			process.BeginOutputReadLine();
+			process.BeginErrorReadLine();
+
+			// wait for process to exit
+			process.WaitForExit();
+
+			if (process.ExitCode != 0)
+				throw new Exception("Command " + psi.FileName + " returned exit code " + process.ExitCode);
+
+			return output.ToString();
 		}
 	}
 }
