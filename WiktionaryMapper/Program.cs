@@ -64,6 +64,7 @@ namespace Memoling.Tools.WiktionaryMapper
                 //Optimize(uris.Antonyms);
 
                 PrintFinished();
+                Environment.Exit(0);
             }
             catch (Exception ex)
             {
