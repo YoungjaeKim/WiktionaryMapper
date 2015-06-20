@@ -47,7 +47,7 @@ namespace WiktionaryMapperGui
 			{
 				TextBoxOriginalFilePath.Text = dialog.FileName;
 				WriteOutput("Wiktionary Process Executed");
-				WriteOutput(ExecCommand(@"WiktionaryMapper.exe", dialog.FileName));
+				WriteOutput(ExecCommand(@"WiktionaryMapper.exe", dialog.FileName, TextBoxOutput));
 			}
 		}
 
@@ -68,7 +68,7 @@ namespace WiktionaryMapperGui
 		/// <param name="filename"></param>
 		/// <param name="arguments"></param>
 		/// <returns></returns>
-		private static string ExecCommand(string filename, string arguments)
+		private static string ExecCommand(string filename, string arguments, TextBox textBox)
 		{
 			Process process = new Process();
 			ProcessStartInfo psi = new ProcessStartInfo(filename)
@@ -83,9 +83,21 @@ namespace WiktionaryMapperGui
 			process.StartInfo = psi;
 
 			StringBuilder output = new StringBuilder();
-			process.OutputDataReceived += (sender, e) => { output.AppendLine(e.Data); };
-			process.ErrorDataReceived += (sender, e) => { output.AppendLine(e.Data); };
-			process.Exited += (sender, args) => { output.AppendLine("Exited with Code " + args.ToString()); };
+			process.OutputDataReceived += (sender, e) =>
+			{
+				textBox.Dispatcher.Invoke(new Action(() => textBox.Text += e.Data + Environment.NewLine));
+				output.AppendLine(e.Data);
+			};
+			process.ErrorDataReceived += (sender, e) =>
+			{
+				textBox.Dispatcher.Invoke(new Action(() => textBox.Text += e.Data + Environment.NewLine));
+				output.AppendLine(e.Data);
+			};
+			process.Exited += (sender, args) =>
+			{
+				textBox.Dispatcher.Invoke(new Action(() => textBox.Text += "Exited with Code " + args + Environment.NewLine));
+				output.AppendLine("Exited with Code " + args.ToString());
+			};
 
 			// run the process
 			process.Start();
